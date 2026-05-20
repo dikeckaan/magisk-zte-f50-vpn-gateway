@@ -2,5 +2,6 @@
     "version": "v1.1.1-f50",
     "versionCode": 3,
     "zipUrl": "https://github.com/dikeckaan/magisk-zte-f50-vpn-gateway/releases/download/v1.1.1-f50/vpn-gateway-v1.1.1-f50.zip",
+    "sha256": "27a65824053ecd62c3b97593ff7fda16a05ec260a67816c2de1f0af32c86911f",
     "changelog": "https://raw.githubusercontent.com/dikeckaan/magisk-zte-f50-vpn-gateway/main/CHANGELOG.md"
 }
