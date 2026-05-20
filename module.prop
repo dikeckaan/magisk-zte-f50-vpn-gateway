@@ -1,0 +1,7 @@
+id=vpn-gateway
+name=VPN Gateway (F50 fork, Tailscale-aware)
+version=v1.1.1-f50
+versionCode=3
+author=Kr328 + kaandikec
+description=F50 fork of Kr328/vpn-gateway. Routes LAN clients through tun0 (any local VPN that owns tun0 — Clash, OpenClash, sing-box, etc.) and on top adds a Tailscale-aware rule (pref 9990) that pins 100.64.0.0/10 to the main routing table. Without that rule, replies from on-device services (sipserver, etc.) to Tailscale peers go into the VPN tunnel and are lost. Idempotent + re-asserted on rt_tables changes.
+updateJson=https://raw.githubusercontent.com/dikeckaan/magisk-zte-f50-vpn-gateway/main/update.json
