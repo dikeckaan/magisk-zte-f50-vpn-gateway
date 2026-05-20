@@ -153,6 +153,25 @@ fi
 # the Tailscale exception so a fresh tailscale boot is reachable.
 install_tailscale_exception
 
+# F50 patch: Tailscale brings its interface up *after* this service.sh has
+# already finished early-boot work, so the route we install above lands
+# without tailscale0 existing yet and gets silently dropped (no interface
+# to point at). Run a short background polling loop that re-asserts the
+# exception once tailscale0 actually appears. Bounded to a single retry
+# loop so it doesn't run forever — inotifyd below picks up subsequent
+# tailscale up/down toggles.
+(
+    i=0
+    while [[ "$i" -lt 30 ]]; do
+        if $ip link show $TAILSCALE_IF >/dev/null 2>&1; then
+            install_tailscale_exception
+            break
+        fi
+        sleep 2
+        i=$((i + 1))
+    done
+) &
+
 echo 1 > /proc/sys/net/ipv4/ip_forward
 echo 0 > /dev/ip_forward_stub
 chown $(stat -c '%u:%g' /data/misc/net/rt_tables) /dev/ip_forward_stub
